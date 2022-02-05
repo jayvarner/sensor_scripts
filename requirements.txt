@@ -1,1 +1,2 @@
 adafruit-circuitpython-ahtx0==1.0.9
+paho-mqtt==1.6.1
