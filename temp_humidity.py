@@ -1,15 +1,9 @@
-# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
-# SPDX-License-Identifier: MIT
-
-"""
-Basic `AHTx0` example test
-"""
-
-import time
+import logging
 import board
 import adafruit_ahtx0
 import paho.mqtt.client as mqtt
 import json
+from datetime import datetime
 
 # Create sensor object, communicating over the board's default I2C bus
 i2c = board.I2C()  # uses board.SCL and board.SDA
@@ -43,8 +37,8 @@ now = datetime.now().strftime('%Y-%m-%d %H:%M')
 try:
     client.connect(hostname, port, timeout)
     client.loop_start()
-    client.publish(f'{config['location']}_temp', (sensor.temperature * 9 / 5 + 32))
-    client.publish(f'{config['location']}_humidity', sensor.relative_humidity)
+    client.publish(f"{config['location']}_temp", (round(sensor.temperature * 9 / 5 + 32, 1)))
+    client.publish(f"{config['location']}_humidity", sensor.relative_humidity)
     logging.info(f'Updated {now}')
 except Exception as e:
     logging.error(f'Fuck, shit failed at {now}')
