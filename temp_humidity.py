@@ -37,8 +37,8 @@ now = datetime.now().strftime('%Y-%m-%d %H:%M')
 try:
     client.connect(hostname, port, timeout)
     client.loop_start()
-    client.publish(f"{config['location']}_temp", (round(sensor.temperature * 9 / 5 + 32, 1)))
-    client.publish(f"{config['location']}_humidity", sensor.relative_humidity)
+    client.publish(f"{config['location']}_temp", round(sensor.temperature * 9 / 5 + 32, 1))
+    client.publish(f"{config['location']}_humidity", round(sensor.relative_humidity, 1))
     logging.info(f'Updated {now}')
 except Exception as e:
     logging.error(f'Fuck, shit failed at {now}')
